@@ -5,15 +5,15 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     private Context context;
-    private FireBall fire;
-    private IceBall ice;
+    private FireBallStrategy fire;
+    private IceBallStrategy ice;
     
     void Start()
     {
         context = GetComponent<Context>();
-        fire = GetComponent<FireBall>();
+        fire = GetComponent<FireBallStrategy>();
         context.SetAttackStrategy(fire);
-        ice = GetComponent<IceBall>();
+        ice = GetComponent<IceBallStrategy>();
     }
 
     // Update is called once per frame

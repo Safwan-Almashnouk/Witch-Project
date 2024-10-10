@@ -19,7 +19,7 @@ public class EnemyStats : MonoBehaviour
         {
             float damage = other.gameObject.GetComponent<ProjectileScript>().damage;
             CurrentHealth = CurrentHealth - damage;
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
             Debug.Log(CurrentHealth);
         }
 

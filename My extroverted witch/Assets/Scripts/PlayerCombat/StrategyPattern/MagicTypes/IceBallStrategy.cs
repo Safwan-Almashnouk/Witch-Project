@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IceBall : MonoBehaviour, IFightStrategy
+public class IceBallStrategy : MonoBehaviour, IFightStrategy
 {
 
     public float RateOfFire;
@@ -20,12 +20,19 @@ public class IceBall : MonoBehaviour, IFightStrategy
     public IEnumerator ExecuteAttack()
     {
         canfire = false;
-        GameObject bulletClone = Instantiate(bullet);
-        bulletClone.transform.position = firePoint.position;
-        bulletClone.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
-        bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
-        StartCoroutine(RoF());
-        yield return null;
+        //GameObject bulletClone = Instantiate(bullet);
+        GameObject bulletClone = IcePool.IceInstance.GetPooledObject();
+        if (bulletClone != null)
+        {
+            bulletClone.transform.position = firePoint.position;
+            bulletClone.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
+            bulletClone.SetActive(true);
+            bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
+            StartCoroutine(RoF());
+            yield return null;
+        }
+
+        
     }   
     IEnumerator RoF()
     {
