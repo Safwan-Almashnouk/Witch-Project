@@ -13,7 +13,7 @@ public class EnemyStats : MonoBehaviour
         MaxHealth = CurrentHealth;
     }
 
-    public void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Bullet")
         {

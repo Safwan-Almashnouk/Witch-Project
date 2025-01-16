@@ -8,6 +8,7 @@ public class WeaponManager : MonoBehaviour
     private FireBallStrategy fire;
     private IceBallStrategy ice;
     
+    
     void Start()
     {
         context = GetComponent<Context>();
@@ -20,10 +21,12 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-             context.AttackDone();
+            context.AttackDone();
         }
+
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             context.SetAttackStrategy(ice);

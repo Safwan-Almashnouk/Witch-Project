@@ -9,8 +9,9 @@ public class ProjectileScript : MonoBehaviour
 
     void Start()
     {
-        Physics2D.IgnoreLayerCollision(3,7);
+        Physics2D.IgnoreLayerCollision(3, 7);
 
+        
     }
 
     // Update is called once per frame
@@ -19,7 +20,10 @@ public class ProjectileScript : MonoBehaviour
         
     }
 
- 
+    private void OnBecameInvisible()
+    {
+        gameObject.SetActive(false);
+    }
 
-    
+
 }

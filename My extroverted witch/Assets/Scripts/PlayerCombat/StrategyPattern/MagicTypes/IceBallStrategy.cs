@@ -5,39 +5,42 @@ using UnityEngine;
 public class IceBallStrategy : MonoBehaviour, IFightStrategy
 {
 
-    public float RateOfFire;
-    public float AttackSpeed;
+   
     public GameObject bullet;
     public float bulletSpeed;
     Vector2 lookDirection;
     float lookAngle;
     public Transform firePoint;
     public bool canfire = true;
+    public float Interval;
+    public float timer;
 
     private Context context;
-    
+
 
     public IEnumerator ExecuteAttack()
     {
-        canfire = false;
-        //GameObject bulletClone = Instantiate(bullet);
-        GameObject bulletClone = IcePool.IceInstance.GetPooledObject();
-        if (bulletClone != null)
+        timer += Time.deltaTime;
+
+        if (timer >= Interval)
         {
+            canfire = false;
+            GameObject bulletClone = Instantiate(bullet);
             bulletClone.transform.position = firePoint.position;
             bulletClone.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
-            bulletClone.SetActive(true);
             bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
             StartCoroutine(RoF());
             yield return null;
+            timer = 0f;
         }
 
-        
-    }   
+
+    }
+
     IEnumerator RoF()
     {
 
-        yield return new WaitForSeconds(RateOfFire);
+        yield return new WaitForSeconds(Interval);
         canfire = true;
 
     }
@@ -46,8 +49,9 @@ public class IceBallStrategy : MonoBehaviour, IFightStrategy
         lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         lookDirection = new Vector2(lookDirection.x - transform.position.x, lookDirection.y - transform.position.y);
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-
         firePoint.rotation = Quaternion.Euler(0, 0, lookAngle);
+
+        
 
     }
 
