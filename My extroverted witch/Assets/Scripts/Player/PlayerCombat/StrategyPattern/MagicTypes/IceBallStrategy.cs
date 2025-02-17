@@ -5,15 +5,15 @@ using UnityEngine;
 public class IceBallStrategy : MonoBehaviour, IFightStrategy
 {
 
-   
-    public GameObject bullet;
-    public float bulletSpeed;
+
+    [SerializeField] GameObject bullet;
+    [SerializeField] float bulletSpeed;
     Vector2 lookDirection;
     float lookAngle;
-    public Transform firePoint;
-    public bool canfire = true;
-    public float Interval;
-    public float timer;
+    [SerializeField] Transform firePoint;
+    [SerializeField] bool canfire = true;
+    [SerializeField] float Interval;
+    [SerializeField] float timer;
 
     private Context context;
 
@@ -26,9 +26,11 @@ public class IceBallStrategy : MonoBehaviour, IFightStrategy
         {
             canfire = false;
             GameObject bulletClone = Instantiate(bullet);
+
             bulletClone.transform.position = firePoint.position;
             bulletClone.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
             bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
+
             StartCoroutine(RoF());
             yield return null;
             timer = 0f;

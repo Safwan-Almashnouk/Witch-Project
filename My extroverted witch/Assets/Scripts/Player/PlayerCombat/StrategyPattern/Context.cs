@@ -18,7 +18,6 @@ public class Context : MonoBehaviour
     {
         if (_strategy != null)
         {
-
             StartCoroutine(_strategy.ExecuteAttack());
         }
     }

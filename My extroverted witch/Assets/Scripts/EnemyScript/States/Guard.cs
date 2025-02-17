@@ -9,6 +9,7 @@ public class Guard : MonoBehaviour
     {
         sm = GetComponent<StateMachine>();
         sm.AddState(StateId.Wandering, GetComponent<WanderState>());
+        sm.AddState(StateId.Chasing, GetComponent<ChaseState>());
         sm.SetState(StateId.Wandering);
     }
 

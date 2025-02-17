@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class LampCombat : MonoBehaviour
 {
-    public float RateOfFire;
-    public float AttackSpeed;
-    public GameObject bullet;
-    public GameObject MeleeWeapon;
-    public float bulletSpeed;
-    Vector2 lookDirection;
-    float lookAngle;
-    public Transform firePoint;
-    private bool canfire = true;
+    [SerializeField] float RateOfFire;
+    [SerializeField] float AttackSpeed;
+
+    [SerializeField] GameObject bullet;
+    [SerializeField] float bulletSpeed;
+
+    [SerializeField] Vector2 lookDirection;
+    [SerializeField] float lookAngle;
+    [SerializeField] Transform firePoint;
+    [SerializeField] bool canfire = true;
 
     void Start()
     {

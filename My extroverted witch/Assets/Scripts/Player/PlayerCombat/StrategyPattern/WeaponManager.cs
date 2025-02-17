@@ -13,8 +13,8 @@ public class WeaponManager : MonoBehaviour
     {
         context = GetComponent<Context>();
         fire = GetComponent<FireBallStrategy>();
-        context.SetAttackStrategy(fire);
         ice = GetComponent<IceBallStrategy>();
+        context.SetAttackStrategy(fire);
     }
 
     // Update is called once per frame
@@ -27,13 +27,16 @@ public class WeaponManager : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            context.SetAttackStrategy(ice);
-        }
+
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             context.SetAttackStrategy(fire);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            context.SetAttackStrategy(ice);
         }
 
     }

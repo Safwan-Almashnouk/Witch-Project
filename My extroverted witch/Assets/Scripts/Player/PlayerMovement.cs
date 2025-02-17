@@ -10,55 +10,48 @@ public class PlayerMovement : MonoBehaviour
     PlayerInput input;
     InputAction action;
     Vector2 moveDir =  Vector2.zero;
-    public float Speed;
+
+    [SerializeField] float speed;
     private bool canDash;
-    private float dashForce = 30f;
+    [SerializeField] float dashForce;
     private bool canMove = true;
-    public Slider staminaSlider; // Reference to the UI slider
-    public float stamina ; // Current stamina value
-    public float staminaRegenSpeed ; // Speed of stamina regeneration
-    public float maxStamina; // Maximum stamina value
+    [SerializeField] float jumpForce;
+    private Vector2 moveDirection;
 
-
+    private StaminaManager staminaManager;
+  
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();
         action = input.actions.FindAction("Movement");
-        
-        
+        staminaManager = GetComponent<StaminaManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
-        StaminaCheck();
-       
     }
 
     void MovePlayer()
     {
-        if(canMove == true)
+        if(canMove)
         {
             Vector2 direction = action.ReadValue<Vector2>();
-            transform.position += new Vector3(direction.x, 0, 0) * Time.deltaTime * Speed;
+            transform.position += new Vector3(direction.x, 0, 0) * Time.deltaTime * speed;
             canDash = true;
         }
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && IsGrounded == true)
         {
-            if (IsGrounded == true)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, 10f);
-            }
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpForce);
         }
     }
    
-
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground"))
@@ -76,18 +69,17 @@ public class PlayerMovement : MonoBehaviour
     public void Dash(InputAction.CallbackContext context)
     {
 
-        canDash = stamina > 35 ? true : false;
-
+        canDash = staminaManager.stamina > 35 ? true : false;
 
         if (context.performed && canDash == true)
         {
           
             Vector2 direction = action.ReadValue<Vector2>();
             Vector3 dashVector = new Vector3(direction.x, 0, 0) * dashForce;
-            rb2d.AddForce(dashVector, (ForceMode2D)ForceMode.Impulse);
+            rb2d.velocity = new Vector2(direction.x * dashForce, rb2d.velocity.y);
             canMove = false;
             canDash = false;
-            stamina = stamina - 40f;
+            staminaManager.UseStamina();
             StartCoroutine(WaitForDash());
 
         }
@@ -101,17 +93,4 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
     }
 
-
-    void StaminaCheck()
-    {
-        // Regenerate stamina if it's below the maximum
-        if (stamina < maxStamina)
-        {
-            stamina += staminaRegenSpeed * Time.deltaTime;
-            stamina = Mathf.Clamp(stamina, 0, maxStamina); // Ensure stamina does not exceed the maximum
-        }
-
-        // Update the stamina slider
-        staminaSlider.value = stamina;
-    }
 }
