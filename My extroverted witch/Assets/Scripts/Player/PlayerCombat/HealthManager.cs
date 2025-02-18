@@ -16,6 +16,5 @@ public class HealthManager : MonoBehaviour
     void Update()
     {
         healthSlider.value = health.CurrentHealth;
-        Debug.Log(health.CurrentHealth);
     }
 }

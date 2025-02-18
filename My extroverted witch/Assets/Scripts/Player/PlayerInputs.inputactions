@@ -24,15 +24,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Shooting",
-                    "type": "Button",
-                    "id": "cdcc8d3d-7e61-4d95-bffe-fc614de85b63",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Dashing",
                     "type": "Value",
                     "id": "11499d58-45c4-4f07-a970-8ad58203ab45",
@@ -86,17 +77,6 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "bf5b87e5-51f7-4b3a-a4a9-52b83d67f7dc",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shooting",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",

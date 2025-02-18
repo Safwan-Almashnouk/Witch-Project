@@ -3331,6 +3331,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7590722728526557136, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590722728526557136, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590722728526557136, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8153673069387403215}
+    - target: {fileID: 7590722728526557136, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8153673069387403214}
+    - target: {fileID: 7590722728526557136, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590722728526557136, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590722728526557136, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590722728526557136, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Jumping, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590722728526557136, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Dashing, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 8015127464125071143, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.73
@@ -3378,7 +3414,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6362971261833663274, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8153673069387403215}
+    - targetCorrespondingSourceObject: {fileID: 6362971261833663274, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8153673069387403214}
   m_SourcePrefab: {fileID: 100100000, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
 --- !u!1 &5420215082412784207 stripped
 GameObject:
@@ -3499,6 +3541,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8015127464125071143, guid: d8c74cbc4f1951b4fbc1c076b6424b84, type: 3}
   m_PrefabInstance: {fileID: 4921130894885628725}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8153673069387403214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420215082412784207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0157298d0a8fc444dbaf89702204e2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashForce: 30
+--- !u!114 &8153673069387403215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420215082412784207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cf253ceb03b62a47a9ae4795a828dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 0
+  jumpForce: 20
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
