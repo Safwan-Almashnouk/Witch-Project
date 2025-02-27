@@ -338,6 +338,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 11499d58-45c4-4f07-a970-8ad58203ab45
     m_ActionName: Movement/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 52f5040b-bbc1-4c60-8cf3-da5f297ed5d9
+    m_ActionName: Combat/Slash
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement

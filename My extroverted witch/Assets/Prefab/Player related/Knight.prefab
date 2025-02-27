@@ -1,102 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &349505972050214855
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 879262802728089809}
-  - component: {fileID: 381741154032627943}
-  - component: {fileID: 631650016218314606}
-  - component: {fileID: 3682636379958579402}
-  - component: {fileID: 1739086805044452049}
-  m_Layer: 3
-  m_Name: WeaponManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &879262802728089809
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349505972050214855}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 966613480859599537}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &381741154032627943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349505972050214855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d9769a1a69564478b487e9fb9ce5b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &631650016218314606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349505972050214855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19b090bd603514f40b3842c109c0ebdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3682636379958579402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349505972050214855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7a1a6f7cd0b9348821f84468f07d10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 73497331464545721, guid: d32bf604f2d090047b6c454433536f0a, type: 3}
-  bulletSpeed: 40
-  lookDirection: {x: 0, y: 0}
-  lookAngle: 0
-  firePoint: {fileID: 0}
-  canfire: 1
-  Interval: 0.6
-  timer: 0
---- !u!114 &1739086805044452049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349505972050214855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87345da5ae01eb344a0fed8441b93747, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 73497331464545721, guid: 8716da97d3e410a479432bd2ff8ec58d, type: 3}
-  bulletSpeed: 60
-  firePoint: {fileID: 0}
-  canfire: 1
-  Interval: 0.3
-  timer: 0
 --- !u!1 &1760425211842002582
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &966613480859599537
 Transform:
   m_ObjectHideFlags: 0
@@ -137,8 +40,7 @@ Transform:
   m_LocalPosition: {x: -10.5, y: -0.5, z: 0}
   m_LocalScale: {x: 0.705, y: 0.705, z: 0.705}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 879262802728089809}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &248484752838822438
@@ -184,7 +86,7 @@ SpriteRenderer:
   m_SortingOrder: 4
   m_Sprite: {fileID: 439788835, guid: 66f3a4647b7397440b648ee6545e9605, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 2}
@@ -266,6 +168,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 11499d58-45c4-4f07-a970-8ad58203ab45
     m_ActionName: Movement/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 52f5040b-bbc1-4c60-8cf3-da5f297ed5d9
+    m_ActionName: Combat/Slash
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement
@@ -283,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fc372de60f83354ca07136ca77bcb6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 20
 --- !u!50 &2996810382922425731
 Rigidbody2D:
   serializedVersion: 4
@@ -437,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
-  jumpForce: 20
+  jumpForce: 30
 --- !u!114 &8877493782564938903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,4 +356,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0157298d0a8fc444dbaf89702204e2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashForce: 30
+  dashForce: 50

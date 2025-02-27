@@ -14,12 +14,15 @@ public class WanderState : State {
     [SerializeField] int currentTarget;
 
     [SerializeField] SpriteRenderer sr;
-    [SerializeField]Transform playerPos;
+    private CapsuleCollider2D capsuleCollider;
+
+    private bool playerFound = false;
    
 
     private void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
  
     }
 
@@ -46,11 +49,17 @@ public class WanderState : State {
 
     public override void Reason()
     {
-        float distance = Vector2.Distance(gameObject.transform.position, playerPos.position);
-        if (distance <= sightdistance)
-        { 
+        if (playerFound) 
+        {
             GetComponent<StateMachine>().SetState(StateId.Chasing);
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerFound = true;
+        }
     }
 }

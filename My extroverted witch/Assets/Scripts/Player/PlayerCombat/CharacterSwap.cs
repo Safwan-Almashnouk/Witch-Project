@@ -10,9 +10,9 @@ public class CharacterSwap : MonoBehaviour
     [SerializeField] List<GameObject> possibleCharacters;
     private int whichCharacter;
 
+
     [SerializeField] FollowPlayer camera;
 
-  
 
     private void Update()
     {

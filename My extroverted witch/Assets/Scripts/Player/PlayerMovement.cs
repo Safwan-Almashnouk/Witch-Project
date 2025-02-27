@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         canMove = state;
     }
-    // Update is called once per frame
+   
     void Update()
     {
         MovePlayer();

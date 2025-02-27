@@ -94,8 +94,30 @@
         {
             "name": "Combat",
             "id": "7bf1d776-4e54-463d-bd8c-bf4c20492b02",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "Slash",
+                    "type": "Button",
+                    "id": "52f5040b-bbc1-4c60-8cf3-da5f297ed5d9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "24351d98-d808-4f1b-9306-d9485a20c32c",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
