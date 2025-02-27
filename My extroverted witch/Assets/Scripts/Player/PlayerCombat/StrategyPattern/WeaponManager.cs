@@ -25,10 +25,6 @@ public class WeaponManager : MonoBehaviour
         {
             context.AttackDone();
         }
-
-
-
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             context.SetAttackStrategy(fire);
