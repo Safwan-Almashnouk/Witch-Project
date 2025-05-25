@@ -1,24 +1,56 @@
-     /// using System.Collections;
-     /// using System.Collections.Generic;
-     /// using UnityEngine;
-     ///
-     /// public class MeleeManager : MonoBehaviour
-     /// {
-     ///     private MeleeContext context;
-     ///     private SpearStrategy spear;
-     ///     private GreatSwordStrategy greatSword;
-     ///     void Start()
-     ///     {
-     ///         context = GetComponent<MeleeContext>();
-     ///         spear = GetComponent<SpearStrategy>();
-     ///         greatSword = GetComponent<GreatSwordStrategy>();
-     ///         context.SetAttackStrategy(greatSword);
-     ///     }
-     ///
-     ///     // Update is called once per frame
-     ///     void Update()
-     ///     {
-     /// 
-     ///     }
-     /// }
-     ///
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
+public class MeleeManager : MonoBehaviour
+{
+    private MeleeContext contexts;
+    private GreatSwordStrategy greatSword;
+
+    private MovementManager _movementManager;
+
+
+    void Start()
+    {
+        contexts = GetComponentInChildren<MeleeContext>();
+        greatSword = GetComponentInChildren<GreatSwordStrategy>();
+        contexts.SetAttackStrategy(greatSword);
+        _movementManager = GetComponentInChildren<MovementManager>();
+
+       
+    }
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void WeaponDamage()
+    {
+        contexts.DealDamage();
+    }
+
+    public void EndAttack()
+    {
+        contexts.EndAttack();
+    }
+
+    public void Slash(InputAction.CallbackContext context)
+    {
+        if (context.performed &&_movementManager.CanAttack == true)
+        {
+            float value = context.ReadValue<float>();
+            if (value > 0)  // Means button pressed down
+            {
+               _movementManager.SetAllMovementPermissions(false);
+                contexts.AttackDone();
+            }
+     
+        }
+
+        
+    }
+
+
+}

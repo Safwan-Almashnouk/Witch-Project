@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Slash",
+                    "type": "Button",
+                    "id": "ea6f60e4-6b6f-49e9-899c-a1edf82a3993",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -88,29 +97,12 @@
                     "action": "Dashing",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Combat",
-            "id": "7bf1d776-4e54-463d-bd8c-bf4c20492b02",
-            "actions": [
-                {
-                    "name": "Slash",
-                    "type": "Button",
-                    "id": "52f5040b-bbc1-4c60-8cf3-da5f297ed5d9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "24351d98-d808-4f1b-9306-d9485a20c32c",
-                    "path": "",
-                    "interactions": "",
+                    "id": "b2637935-6fe7-4c16-8b95-aa55d21444e3",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Slash",

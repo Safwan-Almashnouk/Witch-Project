@@ -11,24 +11,18 @@ public class PlayerMovement : MonoBehaviour
     InputAction action;
     Vector2 moveDir = Vector2.zero;
     [SerializeField] float speed;
-   
-    internal bool canMove { get; private set; } = true;
 
-    
-
-
+    private MovementManager _movementManager;
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         input = GetComponent<PlayerInput>();
         action = input.actions.FindAction("Movement");
+        _movementManager = GetComponent<MovementManager>();
 
     }
-    public void SetCanMove(bool state)
-    {
-        canMove = state;
-    }
+   
    
     void Update()
     {
@@ -37,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
-        if (canMove == true)
+        if (_movementManager.CanMove == true)
         {
             Vector2 direction = action.ReadValue<Vector2>();
             transform.position += new Vector3(direction.x, 0, 0) * Time.deltaTime * speed;

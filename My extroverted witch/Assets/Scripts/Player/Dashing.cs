@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Dashing : MonoBehaviour
 {
-    private bool canDash;
+    private MovementManager _movementManager;
     [SerializeField] float dashForce;
     private StaminaManager staminaManager;
     private Rigidbody2D rb2d;
@@ -22,21 +22,22 @@ public class Dashing : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         input = GetComponent<PlayerInput>();
         action = input.actions.FindAction("Movement");
+        _movementManager = GetComponent<MovementManager>();
     }
 
     public void Dash(InputAction.CallbackContext context)
     {
 
-        canDash = staminaManager.stamina > 35 ? true : false;
+        _movementManager.CanDash = staminaManager.stamina > 35 ? true : false;
 
-        if (context.performed && canDash == true)
+        if (context.performed && _movementManager.CanDash == true)
         {
 
             Vector2 direction = action.ReadValue<Vector2>();
             Vector3 dashVector = new Vector3(direction.x, 0, 0) * dashForce;
             rb2d.velocity = new Vector2(direction.x * dashForce, rb2d.velocity.y);
-            movement.SetCanMove(false);
-            canDash = false;
+            _movementManager.CanMove = false;
+            _movementManager.CanDash = false;
             staminaManager.UseStamina();
             StartCoroutine(WaitForDash());
 
@@ -47,7 +48,7 @@ public class Dashing : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
         rb2d.velocity = Vector3.zero;
-        movement.SetCanMove(true);
-        canDash = true;
+        _movementManager.CanMove = true;
+        _movementManager.CanDash = true;
     }
 }

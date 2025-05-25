@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -13,9 +14,10 @@ public class Health : MonoBehaviour
         MaxHealth = CurrentHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, GameObject attacker)
     {
         CurrentHealth -= damage;
+        Debug.Log($"{gameObject.name} took {damage} damage from {attacker.name}");
     }
     void Update()
     {
@@ -24,5 +26,7 @@ public class Health : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Debug.Log(CurrentHealth);
     }
 }

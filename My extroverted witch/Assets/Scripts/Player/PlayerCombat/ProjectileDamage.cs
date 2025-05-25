@@ -17,7 +17,7 @@ public class ProjectileDamage : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Health targetHealth = collision.gameObject.GetComponent<Health>();
-            targetHealth.TakeDamage(damage);
+            targetHealth.TakeDamage(damage, gameObject);
         }
     }
 
