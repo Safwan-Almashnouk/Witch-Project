@@ -40,4 +40,24 @@ public class MeleeContext : MonoBehaviour
             }
         }
     }
+
+    public void Parry()
+    {
+        if (_meleeStrategy != null)
+        {
+            {
+                _meleeStrategy.StartParry();
+            }
+        }
+    }
+
+    public void EndParry()
+    {
+        if (_meleeStrategy != null)
+        {
+            {
+                _meleeStrategy.EndParry();
+            }
+        }
+    }
 }

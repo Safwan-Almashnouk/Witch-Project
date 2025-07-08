@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
@@ -7,8 +5,8 @@ public class WeaponManager : MonoBehaviour
     private Context context;
     private FireBallStrategy fire;
     private IceBallStrategy ice;
-    
-    
+    internal bool canSwitch = true;
+
     void Start()
     {
         context = GetComponent<Context>();
@@ -17,23 +15,43 @@ public class WeaponManager : MonoBehaviour
         context.SetAttackStrategy(fire);
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            context.AttackDone();
+            context.StartAttack();
         }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            context.StopAttack();
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            context.SetAttackStrategy(fire);
+            if (canSwitch) 
+            {
+                context.SetAttackStrategy(fire);
+            }
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            context.SetAttackStrategy(ice);
+            if (canSwitch)
+            {
+                context.SetAttackStrategy(ice);
+            }
         }
+    }
 
+    void Eability()
+    {
+        context.UseSpecialAbility();
+    }
+
+    void Ultimate() 
+    { 
+        context.UltimateArts();
     }
 }

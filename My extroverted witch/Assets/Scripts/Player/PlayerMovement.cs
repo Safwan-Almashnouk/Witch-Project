@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     PlayerInput input;
     InputAction action;
     Vector2 moveDir = Vector2.zero;
-    [SerializeField] float speed;
+    [SerializeField]internal float speed;
 
     private MovementManager _movementManager;
 

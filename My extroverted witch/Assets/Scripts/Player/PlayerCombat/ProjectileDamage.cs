@@ -5,8 +5,8 @@ using UnityEngine;
 public class ProjectileDamage : MonoBehaviour
 {
     [SerializeField] float damage;
-
-
+    [SerializeField] float energyGiven;
+  
     void Start()
     {
         Physics2D.IgnoreLayerCollision(3, 7);
@@ -14,16 +14,25 @@ public class ProjectileDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy")&& gameObject.tag == "PlayerProjectile")
+        {
+            Physics2D.IgnoreLayerCollision(3, 7);
+            Health targetHealth = collision.gameObject.GetComponent<Health>();
+            targetHealth.TakeDamage(damage, gameObject);
+            EnergyManager.Instance.AddEnergy(energyGiven);
+        }
+
+        if(collision.gameObject.CompareTag("Player")&& gameObject.tag == "EnemyProjectile")
         {
             Health targetHealth = collision.gameObject.GetComponent<Health>();
             targetHealth.TakeDamage(damage, gameObject);
+            EnergyManager.Instance.AddEnergy(energyGiven);
         }
     }
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 

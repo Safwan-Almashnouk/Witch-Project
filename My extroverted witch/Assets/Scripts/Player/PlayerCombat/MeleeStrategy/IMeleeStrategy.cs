@@ -8,4 +8,8 @@ public interface IMeleeStrategy
     void DealDamage();
 
     void EndAttack();
+
+    void StartParry();
+
+    void EndParry();
 }

@@ -23,7 +23,7 @@ public class ShootingScript : MonoBehaviour
 
         if (timer > Rof & CS.canAttack == true)
         {
-            Debug.Log(CS.canAttack);
+          
             timer = 0;
             Shoot();
         }
@@ -31,14 +31,23 @@ public class ShootingScript : MonoBehaviour
 
     void Shoot()
     {
-        GameObject bullet = EnemyObjectPooling.SharedInstance.GetPooledObject();
+        GameObject bullet = ObjectPool.SharedInstance.SpawnFromPool(PoolTag.EnemyBullet, "Beatle", transform.position, transform.rotation);
+
         if (bullet != null)
         {
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation;
 
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                Vector3 targetPos = player.transform.position;
+                bullet.GetComponent<EnemyBulletScript>().Initialize(targetPos);
+            }
 
-            bullet.transform.position = gameObject.transform.position;
-            bullet.transform.rotation = gameObject.transform.rotation;
             bullet.SetActive(true);
         }
     }
+
+
 }

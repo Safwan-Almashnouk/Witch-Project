@@ -52,5 +52,25 @@ public class MeleeManager : MonoBehaviour
         
     }
 
+    public void Parry(InputAction.CallbackContext context)
+    {
+       
+        if (context.performed && _movementManager.CanAttack == true)
+        {
+            float value = context.ReadValue<float>();
+            if (value > 0)  // Means button pressed down
+            {
+                _movementManager.SetAllMovementPermissions(false);
+                contexts.Parry();
+            }
+
+        }
+    }
+
+    public void EndParry()
+    {
+        contexts.EndParry();
+    }
+
 
 }

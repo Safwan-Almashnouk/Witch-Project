@@ -1,24 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Context : MonoBehaviour
 {
     private IFightStrategy _strategy;
+    private Coroutine attackCoroutine;
 
-
-
-    public void SetAttackStrategy(IFightStrategy Newstrategy)
+    public void SetAttackStrategy(IFightStrategy newStrategy)
     {
-        _strategy = Newstrategy;
+        _strategy = newStrategy;
     }
 
-
-   public void AttackDone()
+    public void StartAttack()
     {
-        if (_strategy != null)
+        if (_strategy != null && attackCoroutine == null)
         {
-            StartCoroutine(_strategy.ExecuteAttack());
+            attackCoroutine = StartCoroutine(_strategy.ExecuteAttack());
         }
     }
+
+    public void StopAttack()
+    {
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
+    }
+
+    public void UseSpecialAbility()
+    {
+        _strategy.UseSpecial();
+
+    }
+
+    public void UltimateArts()
+    {
+        _strategy.UseUltimate();
+    }
+ 
 }

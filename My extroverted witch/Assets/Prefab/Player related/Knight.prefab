@@ -432,6 +432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7361778435152434919}
   - component: {fileID: 1900561775120942135}
+  - component: {fileID: 2563445540704263995}
   m_Layer: 3
   m_Name: AttackArea
   m_TagString: Untagged
@@ -508,6 +509,21 @@ PolygonCollider2D:
       - {x: -1.6088886, y: 0.540014}
       - {x: -1.6829367, y: 0.62764543}
   m_UseDelaunayMesh: 0
+--- !u!114 &2563445540704263995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4205191524357902799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa75c529532f74e43bfd2162ea8ae330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &5935317990142497283
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,9 +584,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackArea: {fileID: 0}
   dmg: 15
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  attackRadius: 0.5
   canAttack: 1
   canMove: 1
+  coneCollider: {fileID: 0}

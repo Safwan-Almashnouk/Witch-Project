@@ -9,6 +9,7 @@ public class WanderState : State {
     [SerializeField] GameObject target;
     [SerializeField] float speed, sightdistance;
     [SerializeField] Vector2 targetPos;
+    [SerializeField] GameObject player;
 
     [SerializeField] private Transform[] waypoints;
     [SerializeField] int currentTarget;
@@ -21,6 +22,7 @@ public class WanderState : State {
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         sr = GetComponent<SpriteRenderer>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
  
@@ -55,9 +57,12 @@ public class WanderState : State {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        Vector2 direction = player.transform.position - transform.position;
+        float distanceToPlayer = direction.magnitude;
+
+        if (distanceToPlayer <= sightdistance)
         {
             playerFound = true;
         }

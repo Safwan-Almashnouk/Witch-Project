@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4161865267538812677}
   - component: {fileID: 3366789293219935213}
   m_Layer: 7
-  m_Name: sword_PNG5525 1
-  m_TagString: Bullet
+  m_Name: Fireball
+  m_TagString: PlayerProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73497331464545721}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.023898361, w: 0.99971443}
-  m_LocalPosition: {x: -4.6599956, y: -0.08166239, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.4543, y: 0.3037, z: 0}
+  m_LocalScale: {x: 0.05164, y: 0.06922, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8f3975e71836bce4ba51030fabf2391f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 51f7583d99183f2468ec6fc2d6f749c7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -150,7 +150,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.85, y: 11.24}
+    oldSize: {x: 12, y: 12}
     newSize: {x: 19.2, y: 10.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -171,4 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5346e09c02e9ec40a5be8f2570dc64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 2
+  energyGiven: 5

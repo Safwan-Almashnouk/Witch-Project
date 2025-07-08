@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 public class GreatSwordStrategy : MonoBehaviour, IMeleeStrategy
 {
 
     [Header("Attack Settings")]
     [SerializeField] GameObject attackArea; // The attack collider or empty object representing attack zone
     [SerializeField] float dmg;
-    [SerializeField] LayerMask enemyLayers; // Set this in inspector to enemy layer(s)
-    [SerializeField] float attackRadius = 0.5f; // Radius for overlap check
     private Health enemyHP;
     private MeleeContext context;
 
@@ -21,11 +20,16 @@ public class GreatSwordStrategy : MonoBehaviour, IMeleeStrategy
     [SerializeField] PolygonCollider2D coneCollider;
 
 
+    [Header("Parrying")]
+    [SerializeField] GameObject parryBox;
+
 
     void Start()
     {
         animator = GetComponentInParent<Animator>();
         _movementManager = GetComponentInParent<MovementManager>();
+
+     
     }
     // Update is called once per frame
     void Update()
@@ -38,6 +42,7 @@ public class GreatSwordStrategy : MonoBehaviour, IMeleeStrategy
     {
         if (canAttack)
         {
+            coneCollider.enabled = true;
             canAttack = false;
             animator.SetTrigger("IsAttacking");       
             yield return new WaitForSeconds(0.01f);
@@ -51,24 +56,32 @@ public class GreatSwordStrategy : MonoBehaviour, IMeleeStrategy
     {
         _movementManager.SetAllMovementPermissions(true);
         canAttack = true;
-    
+        coneCollider.enabled = false;
+
     }
 
     public void DealDamage()
     {
-        Debug.Log("hiii");
-        Vector2 attackPos = attackArea.transform.position;
 
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPos, attackRadius, enemyLayers);
-
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            // Try to get an enemy health component and deal damage
-            Health enemyHealth = enemy.GetComponent<Health>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(dmg, gameObject);
-            }
-        }
+        Collider2D hitbox = attackArea.GetComponent<Collider2D>();
+        AttackHitbox hitboxScript = attackArea.GetComponent<AttackHitbox>();
+        hitboxScript.Setup(dmg, gameObject);
+        hitboxScript.ManualHit();
     }
+
+
+    public void StartParry()
+    {
+        Collider2D parryWindow = parryBox.GetComponent<Collider2D>();
+        animator.SetTrigger("IsParrying");
+        parryWindow.enabled = true;
+
+    }
+
+    public void EndParry()
+    {
+        Collider2D parryWindow = parryBox.GetComponent<Collider2D>();
+        parryWindow.enabled = false;
+    }
+
 }

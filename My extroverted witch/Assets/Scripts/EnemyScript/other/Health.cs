@@ -17,16 +17,17 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damage, GameObject attacker)
     {
         CurrentHealth -= damage;
-        Debug.Log($"{gameObject.name} took {damage} damage from {attacker.name}");
+       
     }
     void Update()
     {
+      
 
         if (CurrentHealth <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
-        Debug.Log(CurrentHealth);
+        
     }
 }

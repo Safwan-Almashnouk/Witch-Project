@@ -4,41 +4,32 @@ using UnityEngine;
 
 public class EnemyBulletScript : MonoBehaviour
 {
-   [SerializeField] GameObject player;
-   [SerializeField] Rigidbody2D rb;
-   [SerializeField]float force;
-    Vector3 dir;
-    [SerializeField] internal float damage;
-  
-    
+    [SerializeField] Rigidbody2D rb;
+    [SerializeField] float force;
 
-    // Start is called before the first frame update
-    void OnEnable()
+
+    private Vector3 direction;
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
-        dir = (player.transform.position - transform.position).normalized;
-        rb.velocity = dir * force;
-        Physics2D.IgnoreLayerCollision(6, 7);
-
-
     }
-
-
-        private void OnTriggerEnter2D(Collider2D collision)
+    public void Initialize(Vector3 targetPosition)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Health targetHealth = collision.gameObject.GetComponent<Health>();
-            targetHealth.TakeDamage(damage,gameObject);
-            gameObject.SetActive(false);
-        }
+        
+        direction = (targetPosition - transform.position).normalized;
+        rb.velocity = direction * force;
     }
 
-    
-
-    void OnBecameInvisible()
+    private void OnBecameInvisible()
     {
         gameObject.SetActive(false);
+        gameObject.tag = "EnemyBullet";
+    }
+
+    public void Reflect()
+    {
+        rb.velocity = -rb.velocity;
+        direction = -direction;
     }
 }
