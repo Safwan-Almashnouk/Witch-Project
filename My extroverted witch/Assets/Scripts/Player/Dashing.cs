@@ -8,7 +8,7 @@ public class Dashing : MonoBehaviour
 {
     private MovementManager _movementManager;
     [SerializeField] float dashForce;
-    private StaminaManager staminaManager;
+   
     private Rigidbody2D rb2d;
     InputAction action;
     private PlayerMovement movement;
@@ -17,7 +17,7 @@ public class Dashing : MonoBehaviour
 
     private void Start()
     {
-        staminaManager = GetComponent<StaminaManager>();
+        
         rb2d = GetComponent<Rigidbody2D>();
         movement = GetComponent<PlayerMovement>();
         input = GetComponent<PlayerInput>();
@@ -28,7 +28,7 @@ public class Dashing : MonoBehaviour
     public void Dash(InputAction.CallbackContext context)
     {
 
-        _movementManager.CanDash = staminaManager.stamina > 35 ? true : false;
+       
 
         if (context.performed && _movementManager.CanDash == true)
         {
@@ -38,7 +38,7 @@ public class Dashing : MonoBehaviour
             rb2d.velocity = new Vector2(direction.x * dashForce, rb2d.velocity.y);
             _movementManager.CanMove = false;
             _movementManager.CanDash = false;
-            staminaManager.UseStamina();
+            
             StartCoroutine(WaitForDash());
 
         }

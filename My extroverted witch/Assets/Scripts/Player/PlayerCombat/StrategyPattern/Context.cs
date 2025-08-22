@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Context : MonoBehaviour
 {
@@ -37,5 +38,16 @@ public class Context : MonoBehaviour
     {
         _strategy.UseUltimate();
     }
+
+    public void UseChargeAttack(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            _strategy.StartCharging();
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            _strategy.FinishedCharging();        }
+        }
  
 }

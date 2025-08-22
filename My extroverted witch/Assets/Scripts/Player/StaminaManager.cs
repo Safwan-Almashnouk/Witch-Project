@@ -30,8 +30,12 @@ public class StaminaManager : MonoBehaviour
         staminaSlider.value = stamina;
     }
 
-   public void UseStamina()
+   public void UseStamina(float amount)
     {
-        stamina = stamina - 40f;
+        if (stamina >= amount) 
+        {
+            stamina = stamina - amount;
+        }
+        
     }
 }

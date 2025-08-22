@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class  Health : MonoBehaviour
 {
     [SerializeField] internal float CurrentHealth;
     [SerializeField] float MaxHealth;
@@ -21,8 +21,7 @@ public class Health : MonoBehaviour
     }
     void Update()
     {
-      
-
+ 
         if (CurrentHealth <= 0)
         {
             gameObject.SetActive(false);

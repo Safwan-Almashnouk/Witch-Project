@@ -1,16 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI; // Changed from UIElements to UI for cooldown bar
 
 public class IceBuilder : MonoBehaviour
 {
+    [Header("Wall Settings")]
     public LineRenderer lineRenderer;
     public GameObject wallSegmentPrefab;
     public float segmentSpacing = 0.2f;
-    public float energyPerUnit = 1f;
     public float maxWallLength = 100f;
     public LayerMask groundLayer;
+    public LayerMask enemyLayer;
+    public float checkRadius = 0.3f;
+
+    [Header("Cooldown Settings")]
+    public float cooldownTime = 5f; // how long until we can use again
+    private float nextReadyTime;
+
+    [Header("UI")]
+    public Image cooldownImage; // drag in your UI fill image
 
     private List<Vector2> points = new List<Vector2>();
     private Vector2 lastPoint;
@@ -18,30 +27,42 @@ public class IceBuilder : MonoBehaviour
     private float totalLength = 0f;
 
     private WeaponManager weaponManager;
-    private IceBallStrategy IceBallStrategy;
+    private IceBallStrategy iceBallStrategy;
     internal bool isActive = false;
-
-    public LayerMask enemyLayer;
-    public float checkRadius = 0.3f;
-
 
     private void Start()
     {
         weaponManager = GetComponentInParent<WeaponManager>();
-        IceBallStrategy = GetComponentInParent<IceBallStrategy>();
+        iceBallStrategy = GetComponentInParent<IceBallStrategy>();
+
+        if (cooldownImage != null)
+            cooldownImage.fillAmount = 1f; // starts ready
     }
-    void Update()
+
+    private void Update()
     {
-        if (!isActive)
+        // Update cooldown UI
+        float cooldownRemaining = nextReadyTime - Time.time;
+        if (cooldownRemaining > 0)
         {
-            return;
+            cooldownImage.fillAmount = 1 - (cooldownRemaining / cooldownTime);
         }
+        else
+        {
+            cooldownImage.fillAmount = 1f;
+        }
+
+        if (!isActive)
+            return;
 
         if (Input.GetMouseButtonDown(0))
         {
-            StartDrawing();
-            weaponManager.canSwitch = false;
-            IceBallStrategy.canfire = false;
+            if (Time.time >= nextReadyTime) // only start if off cooldown
+            {
+                StartDrawing();
+                weaponManager.canSwitch = false;
+                iceBallStrategy.canfire = false;
+            }
         }
 
         if (isDrawing && Input.GetMouseButton(0))
@@ -49,13 +70,12 @@ public class IceBuilder : MonoBehaviour
             ContinueDrawing();
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && isDrawing)
         {
             FinishDrawing();
             isActive = false;
-            Debug.Log("Hiiii");
             weaponManager.canSwitch = true;
-            IceBallStrategy.canfire = true;
+            iceBallStrategy.canfire = true;
         }
     }
 
@@ -76,6 +96,7 @@ public class IceBuilder : MonoBehaviour
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, lastPoint);
     }
+
     Vector2 GetMouseWorldPos()
     {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -88,20 +109,13 @@ public class IceBuilder : MonoBehaviour
 
         if (dist > segmentSpacing)
         {
-            float energyCost = dist * energyPerUnit;
-
-            if (IceBallStrategy.currentEnergy <= 0)
-            {
-                FinishDrawing();
-                return;
-            }
             totalLength += dist;
             if (totalLength > maxWallLength)
             {
                 FinishDrawing();
                 return;
-
             }
+
             Vector2 direction = (current - lastPoint).normalized;
             float distanceRemaining = dist;
 
@@ -109,7 +123,6 @@ public class IceBuilder : MonoBehaviour
             {
                 Vector2 nextPoint = lastPoint + direction * segmentSpacing;
 
-                
                 if (Physics2D.OverlapCircle(nextPoint, checkRadius, enemyLayer))
                 {
                     Debug.Log("Enemy in the way, stopping wall.");
@@ -123,10 +136,8 @@ public class IceBuilder : MonoBehaviour
                 lineRenderer.SetPosition(points.Count - 1, nextPoint);
             }
         }
-
-        
-
     }
+
     void FinishDrawing()
     {
         isDrawing = false;
@@ -142,7 +153,11 @@ public class IceBuilder : MonoBehaviour
             wallSegment.transform.localScale = new Vector3(length, wallSegment.transform.localScale.y, 1);
         }
         lineRenderer.positionCount = 0;
-        IceBallStrategy.currentEnergy = 0;
-        IceBallStrategy.recharging = true;
+
+        // Start cooldown here
+        nextReadyTime = Time.time + cooldownTime;
+
+        // Force ability off until player re-selects it
+        isActive = false;
     }
 }

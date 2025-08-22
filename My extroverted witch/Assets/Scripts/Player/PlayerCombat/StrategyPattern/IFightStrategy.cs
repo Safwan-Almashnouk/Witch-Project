@@ -7,5 +7,7 @@ public interface IFightStrategy
 
     void UseUltimate();
 
-    
+    void StartCharging();
+
+    void FinishedCharging();
 }

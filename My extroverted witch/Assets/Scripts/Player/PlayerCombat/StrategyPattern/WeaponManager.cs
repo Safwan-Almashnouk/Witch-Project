@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
@@ -6,12 +7,14 @@ public class WeaponManager : MonoBehaviour
     private FireBallStrategy fire;
     private IceBallStrategy ice;
     internal bool canSwitch = true;
+    private ElementalUIManager manager;
 
     void Start()
     {
         context = GetComponent<Context>();
         fire = GetComponent<FireBallStrategy>();
         ice = GetComponent<IceBallStrategy>();
+        manager = GetComponent<ElementalUIManager>();
         context.SetAttackStrategy(fire);
     }
 
@@ -32,6 +35,7 @@ public class WeaponManager : MonoBehaviour
             if (canSwitch) 
             {
                 context.SetAttackStrategy(fire);
+                manager.SetActiveObject("Fire");
             }
             
         }
@@ -41,6 +45,7 @@ public class WeaponManager : MonoBehaviour
             if (canSwitch)
             {
                 context.SetAttackStrategy(ice);
+                manager.SetActiveObject("Ice");
             }
         }
     }

@@ -28,23 +28,43 @@ public class IceBallStrategy : MonoBehaviour, IFightStrategy
     Vector2 lookDirection;
     float lookAngle;
     private Context context;
+    private IceUltimate ultimate;
+
+    [SerializeField] internal int maxAmmo;
+    [SerializeField] internal int currentAmmo;
+
+  
+
+   
+
+
 
 
     public void Start()
     {
         iceSpecial = GetComponentInChildren<IceBuilder>();
+        ultimate = GetComponentInChildren<IceUltimate>();
+        currentAmmo = maxAmmo;
+    }
+
+    public void AddAmmo(int amount)
+    {
+        currentAmmo += amount;
+        currentAmmo = Mathf.Min(currentAmmo, maxAmmo);
+        Debug.Log($"Ice ammo given: {amount}");
     }
     public IEnumerator ExecuteAttack()
     {
         while (true)
         {
-            if (canfire)
+            if (canfire & currentAmmo > 0)
             {
                 GameObject bulletClone = ObjectPool.SharedInstance.SpawnFromPool(PoolTag.PlayerProjectile, "Ice", transform.position, transform.rotation);
 
                 if (bulletClone != null)
                 {
                     bulletClone.SetActive(true);
+                    currentAmmo--;
                     bulletClone.transform.position = firePoint.position;
                     bulletClone.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
                     bulletClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;
@@ -74,7 +94,8 @@ public class IceBallStrategy : MonoBehaviour, IFightStrategy
         lookDirection = new Vector2(lookDirection.x - transform.position.x, lookDirection.y - transform.position.y);
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         firePoint.rotation = Quaternion.Euler(0, 0, lookAngle);
-        energySlider.value = currentEnergy;
+        
+       
 
         if (recharging == true) 
         { 
@@ -102,6 +123,16 @@ public class IceBallStrategy : MonoBehaviour, IFightStrategy
     }
     public void UseUltimate()
     {
+        ultimate.Ultimate(transform.position);
+    }
 
+    public void StartCharging()
+    {
+       
+    }
+
+    public void FinishedCharging()
+    {
+        
     }
 }

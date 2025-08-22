@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 4519035113993775430}
   - component: {fileID: 1471451676618633474}
   - component: {fileID: -225160045124400122}
-  m_Layer: 0
+  - component: {fileID: 7619858806134002142}
+  m_Layer: 7
   m_Name: Bullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
@@ -163,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 15
+  energyGiven: 0
 --- !u!114 &-225160045124400122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,5 +178,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  force: 69
-  damage: 10
+  force: 70
+--- !u!114 &7619858806134002142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450279697647593922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644e879ab4df87648bd19002ac98303b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

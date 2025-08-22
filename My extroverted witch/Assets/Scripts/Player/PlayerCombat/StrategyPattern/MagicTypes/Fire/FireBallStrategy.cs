@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEngine.ParticleSystem;
 
 public class FireBallStrategy : MonoBehaviour, IFightStrategy
 {
@@ -13,15 +15,13 @@ public class FireBallStrategy : MonoBehaviour, IFightStrategy
     [SerializeField] GameObject bullet;
 
     [Header("Bullet Parameters")]
-    [SerializeField] Vector2 lookDirection;
-    [SerializeField] float lookAngle;
-    [SerializeField] Transform firePoint;
-    [SerializeField]bool canfire = true;
+    [SerializeField] internal Vector2 lookDirection;
+    [SerializeField] internal float lookAngle;
+    [SerializeField] internal Transform firePoint;
+    [SerializeField]internal bool canfire = true;
 
     [Header("SpecailAbilities")]
-    [SerializeField] private float maxEnegry;
-    [SerializeField] private float currentEnergy;
-    [SerializeField] private float energyRecharge;
+    [SerializeField] private float cooldownTime, nextReadyTime;
     [SerializeField] ParticleSystem flames;
     private bool CanUseAbility;
     private bool isFiring;
@@ -31,16 +31,18 @@ public class FireBallStrategy : MonoBehaviour, IFightStrategy
     private WeaponManager weaponManager;
     private Context context;
     private FireballUltimate ultimateMove;
+    private FireCharged charge;
 
     [Header("UI")]
-    [SerializeField] Slider energySlider;
-
+    [SerializeField] Image Special;
 
     void Start()
     {
         weaponManager = GetComponent<WeaponManager>();
         playerMovement = GetComponentInParent<PlayerMovement>();
         ultimateMove = GetComponentInChildren<FireballUltimate>();
+        charge = GetComponentInChildren<FireCharged>();
+        Special.fillAmount = 1f;
     }
 
     public IEnumerator ExecuteAttack()
@@ -79,23 +81,29 @@ public class FireBallStrategy : MonoBehaviour, IFightStrategy
         lookDirection = new Vector2(lookDirection.x - transform.position.x, lookDirection.y - transform.position.y);
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         firePoint.rotation = Quaternion.Euler(0, 0, lookAngle);
-        energySlider.value = currentEnergy;
         flames.transform.rotation = Quaternion.Euler(0, 0, lookAngle);
 
-        if (currentEnergy <= 0)
+        float cooldownRemaining = nextReadyTime - Time.time;
+
+        if (cooldownRemaining > 0)
         {
-            StopSpecialAbility();
+            Special.fillAmount = 1 - (cooldownRemaining / cooldownTime);
+        }
+        else
+        {
+            Special.fillAmount = 1f;  
         }
 
-        if (currentEnergy < maxEnegry)
+        if (flames.isEmitting == false)
         {
-            RechargeEnergy();
+            isFiring = false;
+            Debug.Log("Flames Stopped");
         }
+
 
         if (isFiring)
         {
-            currentEnergy -= 2 * Time.deltaTime;
-            currentEnergy = Mathf.Max(0, currentEnergy);
+            
             weaponManager.canSwitch = false;
             playerMovement.speed = 15;
         }
@@ -109,32 +117,29 @@ public class FireBallStrategy : MonoBehaviour, IFightStrategy
 
    public void UseSpecial()
     {
-        if (CanUseAbility && currentEnergy >= maxEnegry)
+        if (Time.time >= nextReadyTime)
         {
-            isFiring = true;
-            flames.Play();
-        }
-      
-    }
-
-    public void StopSpecialAbility()
-    {
-        isFiring = false;
-        flames.Stop();
-    }
-
-    void RechargeEnergy()
-    {
-        if (!isFiring && currentEnergy < maxEnegry)
-        {
-            currentEnergy += energyRecharge * Time.deltaTime;
-            currentEnergy = Mathf.Min(currentEnergy, maxEnegry);
-         
+          nextReadyTime = Time.time + cooldownTime;
+            
+          isFiring = true;
+          flames.Play();
         }
     }
+
+  
 
     public void UseUltimate()
     {
         ultimateMove.Ultimate();
+    }
+
+    public void StartCharging()
+    {
+        charge.StartCharging();
+    }
+
+    public void FinishedCharging()
+    {
+        charge.ReleaseCharging();
     }
 }

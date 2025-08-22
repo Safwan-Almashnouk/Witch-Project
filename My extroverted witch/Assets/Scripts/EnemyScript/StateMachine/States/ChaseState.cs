@@ -20,10 +20,15 @@ public class ChaseState : State
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
+
+    private void Start()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
     public override void Enter()
     {
         lastPosX = transform.position.x;
-        sr = GetComponent<SpriteRenderer>();
+       
         
 
     }

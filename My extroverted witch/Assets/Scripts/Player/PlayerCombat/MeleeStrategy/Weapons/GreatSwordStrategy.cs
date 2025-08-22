@@ -15,7 +15,6 @@ public class GreatSwordStrategy : MonoBehaviour, IMeleeStrategy
 
     [Header("Attack conditions")]
     [SerializeField] bool canAttack = true;
-    [SerializeField] bool canMove = true;
     private MovementManager _movementManager;
     [SerializeField] PolygonCollider2D coneCollider;
 

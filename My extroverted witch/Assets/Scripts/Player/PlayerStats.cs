@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    internal float stamina = 100;
+  
     
 }
